@@ -18,8 +18,28 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping
-    public List<Employee> showCounter() {
+    @GetMapping("/total-employees")
+    public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
+    }
+
+    @GetMapping("/salary/sum")
+    public String getSalarySum() {
+        return employeeService.getSalarySum();
+    }
+
+    @GetMapping("/salary/min")
+    public Employee getEmployeeWithMinSalary() {
+        return employeeService.getEmployeeWithMinSalary();
+    }
+
+    @GetMapping("/salary/max")
+    public Employee getEmployeeWithMaxSalary() {
+        return employeeService.getEmployeeWithMaxSalary();
+    }
+
+    @GetMapping("/high-salary")
+    public List<Employee> getEmployeesWithHighSalary() {
+        return employeeService.getEmployeesWithHighSalary();
     }
 }
