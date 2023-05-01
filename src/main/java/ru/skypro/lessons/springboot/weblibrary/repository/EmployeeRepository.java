@@ -9,9 +9,9 @@ public interface EmployeeRepository {
 
     String getSalarySum();
 
-    Employee getEmployeeWithMinSalary();
+    List<Employee> getEmployeesWithMinSalary();
 
-    Employee getEmployeeWithMaxSalary();
+    List<Employee> getEmployeesWithMaxSalary();
 
     List<Employee> getEmployeesWithHighSalary();
 }

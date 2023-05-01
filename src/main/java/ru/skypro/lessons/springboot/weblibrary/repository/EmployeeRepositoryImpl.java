@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.skypro.lessons.springboot.weblibrary.pojo.Employee;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository{
@@ -12,7 +13,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
             new Employee("Kate", 90_000),
             new Employee("John", 102_000),
             new Employee("Ben", 80_000),
-            new Employee("Mary", 165_000)
+            new Employee("Mary", 105_000),
+            new Employee("David", 80_000)
     );
 
     @Override
@@ -22,47 +24,31 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
 
     @Override
     public String getSalarySum() {
-        long totalSalary = getStatics().getSum();
-        return "Сумма зарплат сотрудников: " + totalSalary + " руб.";
+        return "Сумма зарплат сотрудников: " + getSalaryStatics().getSum() + " руб.";
     }
 
     @Override
-    public Employee getEmployeeWithMinSalary() {
-        Employee employeeWithMinSalary = null;
-        long minSalary = getStatics().getMin();
-        for (Employee employee : employeeList) {
-            if (employee.getSalary() == minSalary) {
-                employeeWithMinSalary = employee;
-            }
-        }
-        return employeeWithMinSalary;
+    public List<Employee> getEmployeesWithMinSalary() {
+        return employeeList.stream()
+                .filter(employee -> employee.getSalary() == getSalaryStatics().getMin())
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Employee getEmployeeWithMaxSalary() {
-        Employee employeeWithMaxSalary = null;
-        long maxSalary = getStatics().getMax();
-        for (Employee employee : employeeList) {
-            if (employee.getSalary() == maxSalary) {
-                employeeWithMaxSalary = employee;
-            }
-        }
-        return employeeWithMaxSalary;
+    public List<Employee>  getEmployeesWithMaxSalary() {
+        return employeeList.stream()
+                .filter(employee -> employee.getSalary() == getSalaryStatics().getMax())
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Employee> getEmployeesWithHighSalary() {
-        List<Employee> employeesWithHighSalary = new ArrayList<>();
-        double averageSalary = getStatics().getAverage();
-        for (Employee employee : employeeList) {
-            if (employee.getSalary() > averageSalary) {
-                employeesWithHighSalary.add(employee);
-            }
-        }
-        return employeesWithHighSalary;
+        return employeeList.stream()
+                .filter(employee -> employee.getSalary() > getSalaryStatics().getAverage())
+                .collect(Collectors.toList());
     }
 
-    public IntSummaryStatistics getStatics() {
+    public IntSummaryStatistics getSalaryStatics() {
         return employeeList.stream()
                 .mapToInt(Employee::getSalary)
                 .summaryStatistics();
