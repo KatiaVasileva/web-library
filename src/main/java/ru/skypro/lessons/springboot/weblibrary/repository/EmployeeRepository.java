@@ -14,4 +14,6 @@ public interface EmployeeRepository {
     List<Employee> getEmployeesWithMaxSalary();
 
     List<Employee> getEmployeesWithHighSalary();
+
+    void createNewEmployee(String name, int salary);
 }

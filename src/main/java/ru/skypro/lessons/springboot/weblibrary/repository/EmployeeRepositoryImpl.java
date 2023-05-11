@@ -9,13 +9,12 @@ import java.util.stream.Collectors;
 @Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository{
 
-    private final List<Employee> employeeList = List.of(
+    private List<Employee> employeeList = new ArrayList<>(List.of(
             new Employee("Kate", 90_000),
             new Employee("John", 102_000),
             new Employee("Ben", 80_000),
-            new Employee("Mary", 105_000),
-            new Employee("David", 80_000)
-    );
+            new Employee("Mary", 165_000)
+    ));
 
     @Override
     public List<Employee> getAllEmployees() {
@@ -46,6 +45,12 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
         return employeeList.stream()
                 .filter(employee -> employee.getSalary() > getSalaryStatics().getAverage())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void createNewEmployee(String name, int salary) {
+        Employee employee = new Employee(name, salary);
+        employeeList.add(employee);
     }
 
     public IntSummaryStatistics getSalaryStatics() {

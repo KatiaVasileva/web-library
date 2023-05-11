@@ -39,4 +39,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     public List<Employee> getEmployeesWithHighSalary() {
         return employeeRepository.getEmployeesWithHighSalary();
     }
+
+    @Override
+    public void createNewEmployee(String name, int salary) {
+        employeeRepository.createNewEmployee(name, salary);
+    }
 }

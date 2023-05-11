@@ -1,3 +1,31 @@
+POST http://localhost:8080/employee/new-employee
+
+###
+
+POST http://localhost:8080/employee/new-employee
+
+###
+
+POST http://localhost:8080/employee/new-employee
+
+###
+
+GET http://localhost:8080/employee/total-employees
+
+<> 2023-05-11T231355.200.json
+
+###
+
+POST http://localhost:8080/employee/new-employee
+
+###
+
+GET http://localhost:8080/employee/total-employees
+
+<> 2023-05-11T223211.200.json
+
+###
+
 GET http://localhost:8080/employee/high-salary
 
 <> 2023-05-01T171608.200.json
@@ -259,42 +287,6 @@ GET http://localhost:8080/employee/salary/sum
 GET http://localhost:8080/employee/total-employees
 
 <> 2023-04-30T141412.200.json
-
-###
-
-GET http://localhost:8080/employee/total-employees
-
-<> 2023-04-30T141322.404.json
-
-###
-
-GET http://localhost:8080/employee/total-salary
-
-<> 2023-04-30T140557.200.json
-
-###
-
-GET http://localhost:8080/employee/salary/min
-
-<> 2023-04-30T140152.200.txt
-
-###
-
-GET http://localhost:8080/employee/salary/min
-
-<> 2023-04-30T140039.200.txt
-
-###
-
-GET http://localhost:8080/employee/salary/min
-
-<> 2023-04-30T135709.200.json
-
-###
-
-GET http://localhost:8080/employee/salary/sum
-
-<> 2023-04-30T135224.200.txt
 
 ###
 

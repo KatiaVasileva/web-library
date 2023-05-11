@@ -7,8 +7,16 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
+    private long id;
     private String name;
     private int salary;
+    private static long idGenerator;
+
+    public Employee(String name, int salary) {
+        this.name = name;
+        this.salary = salary;
+        id = ++idGenerator;
+    }
 
     @Override
     public String toString() {
