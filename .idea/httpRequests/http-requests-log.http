@@ -1,0 +1,300 @@
+GET http://localhost:8080/employee/high-salary
+
+<> 2023-05-01T171608.200.json
+
+###
+
+GET http://localhost:8080/employee/high-salary
+
+<> 2023-05-01T171605.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/max
+
+<> 2023-05-01T171602.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-05-01T171556.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/sum
+
+<> 2023-05-01T171552.200.txt
+
+###
+
+GET http://localhost:8080/employee/total-employees
+
+<> 2023-05-01T171534.200.json
+
+###
+
+GET http://localhost:8080/employee/high-salary
+
+<> 2023-05-01T171246.200.json
+
+###
+
+GET http://localhost:8080/employee/high-salary
+
+<> 2023-05-01T171243.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/max
+
+<> 2023-05-01T171238.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-05-01T171233.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/sum
+
+<> 2023-05-01T171230.200.txt
+
+###
+
+GET http://localhost:8080/employee/total-employees
+
+<> 2023-05-01T171223.200.json
+
+###
+
+GET http://localhost:8080/employee/high-salary
+
+<> 2023-05-01T170755.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/max
+
+<> 2023-05-01T170747.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-05-01T170741.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/sum
+
+<> 2023-05-01T170738.200.txt
+
+###
+
+GET http://localhost:8080/employee/total-employees
+
+<> 2023-05-01T170729.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-05-01T170327.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-05-01T170028.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/sum
+
+<> 2023-05-01T161904.200.txt
+
+###
+
+GET http://localhost:8080/employee/high-salary
+
+<> 2023-04-30T155829.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/max
+
+<> 2023-04-30T155827.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-04-30T155820.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/sum
+
+<> 2023-04-30T155816.200.txt
+
+###
+
+GET http://localhost:8080/employee/total-employees
+
+<> 2023-04-30T155813.200.json
+
+###
+
+GET http://localhost:8080/employee/high-salary
+
+<> 2023-04-30T155730.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/max
+
+<> 2023-04-30T155727.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/max
+
+<> 2023-04-30T155725.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-04-30T155721.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-04-30T155715.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/sum
+
+<> 2023-04-30T155710.200.txt
+
+###
+
+GET http://localhost:8080/employee/total-employees
+
+<> 2023-04-30T155705.200.json
+
+###
+
+GET http://localhost:8080/employee/high-salary
+
+<> 2023-04-30T155421.200.json
+
+###
+
+GET http://localhost:8080/employee/high-salary
+
+<> 2023-04-30T155417.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/max
+
+<> 2023-04-30T155411.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-04-30T155406.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/sum
+
+<> 2023-04-30T155402.200.txt
+
+###
+
+GET http://localhost:8080/employee/total-employees
+
+<> 2023-04-30T155357.200.json
+
+###
+
+GET http://localhost:8080/employee/high-salary
+
+<> 2023-04-30T141450.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/max
+
+<> 2023-04-30T141438.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/max
+
+<> 2023-04-30T141432.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-04-30T141428.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/sum
+
+<> 2023-04-30T141424.200.txt
+
+###
+
+GET http://localhost:8080/employee/total-employees
+
+<> 2023-04-30T141412.200.json
+
+###
+
+GET http://localhost:8080/employee/total-employees
+
+<> 2023-04-30T141322.404.json
+
+###
+
+GET http://localhost:8080/employee/total-salary
+
+<> 2023-04-30T140557.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-04-30T140152.200.txt
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-04-30T140039.200.txt
+
+###
+
+GET http://localhost:8080/employee/salary/min
+
+<> 2023-04-30T135709.200.json
+
+###
+
+GET http://localhost:8080/employee/salary/sum
+
+<> 2023-04-30T135224.200.txt
+
+###
+

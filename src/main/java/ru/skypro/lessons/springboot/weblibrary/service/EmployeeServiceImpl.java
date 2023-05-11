@@ -19,4 +19,24 @@ public class EmployeeServiceImpl implements EmployeeService{
     public List<Employee> getAllEmployees() {
         return employeeRepository.getAllEmployees();
     }
+
+    @Override
+    public String getSalarySum() {
+        return employeeRepository.getSalarySum();
+    }
+
+    @Override
+    public List<Employee> getEmployeesWithMinSalary() {
+        return employeeRepository.getEmployeesWithMinSalary();
+    }
+
+    @Override
+    public List<Employee>  getEmployeesWithMaxSalary() {
+        return employeeRepository.getEmployeesWithMaxSalary();
+    }
+
+    @Override
+    public List<Employee> getEmployeesWithHighSalary() {
+        return employeeRepository.getEmployeesWithHighSalary();
+    }
 }
