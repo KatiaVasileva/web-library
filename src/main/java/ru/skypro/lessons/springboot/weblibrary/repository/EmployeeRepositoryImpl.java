@@ -63,7 +63,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
             }
         }
         throw new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Сотрудник не найден!");
-
     }
 
     @Override
