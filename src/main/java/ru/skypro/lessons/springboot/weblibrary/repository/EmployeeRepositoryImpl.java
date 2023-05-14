@@ -1,6 +1,8 @@
 package ru.skypro.lessons.springboot.weblibrary.repository;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import ru.skypro.lessons.springboot.weblibrary.exceptions.EmployeeNotFoundException;
 import ru.skypro.lessons.springboot.weblibrary.pojo.Employee;
 
 import java.util.*;
@@ -48,9 +50,44 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
     }
 
     @Override
-    public void createNewEmployee(String name, int salary) {
-        Employee employee = new Employee(name, salary);
-        employeeList.add(employee);
+    public void addEmployeeList(List<Employee> newEmployeeList) {
+        employeeList.addAll(newEmployeeList);
+    }
+
+    @Override
+    public void editEmployee(int id, Employee updatedEmployee) {
+        for (Employee employee : employeeList) {
+            if (employee.getId() == id) {
+                employee.setName(updatedEmployee.getName());
+                employee.setSalary(updatedEmployee.getSalary());
+            }
+        }
+        throw new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Сотрудник не найден!");
+
+    }
+
+    @Override
+    public Employee getEmployeeById(int id) {
+        for (Employee employee : employeeList) {
+            if (employee.getId() == id) {
+                return employee;
+            }
+        }
+        throw new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Сотрудник не найден!");
+    }
+
+    @Override
+    public void deleteEmployeeById(int id) {
+        if (!employeeList.removeIf(employee -> employee.getId() == id)) {
+            throw new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Сотрудник не найден!");
+        }
+    }
+
+    @Override
+    public List<Employee> getEmployeesWithSalaryHigherThan(int salary) {
+        return employeeList.stream()
+                .filter(employee -> employee.getSalary() > salary)
+                .collect(Collectors.toList());
     }
 
     public IntSummaryStatistics getSalaryStatics() {

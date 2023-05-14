@@ -39,9 +39,28 @@ public class EmployeeController {
         return employeeService.getEmployeesWithHighSalary();
     }
 
-    @PostMapping("/new-employee")
-    public void createNewEmployee(@RequestBody Employee employee) {
-        employeeService.createNewEmployee(employee.getName(), employee.getSalary());
+    @PostMapping("/")
+    public void addEmployeeList(@RequestBody List<Employee> newEmployeeList) {
+        employeeService.addEmployeeList(newEmployeeList);
     }
 
+    @PutMapping("/{id}")
+    public void editEmployee(@PathVariable int id, @RequestBody Employee updatedEmployee) {
+        employeeService.editEmployee(id, updatedEmployee);
+    }
+
+    @GetMapping("/{id}")
+    public Employee getEmployeeById(@PathVariable int id) {
+        return employeeService.getEmployeeById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteEmployeeByID(@PathVariable int id) {
+        employeeService.deleteEmployeeById(id);
+    }
+
+    @GetMapping("/salaryHigherThan")
+    public List<Employee> getEmployeesWithSalaryHigherThan(@RequestParam("salary") int salary) {
+        return employeeService.getEmployeesWithSalaryHigherThan(salary);
+    }
 }

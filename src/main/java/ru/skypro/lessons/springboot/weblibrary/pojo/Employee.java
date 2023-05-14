@@ -4,13 +4,14 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class Employee {
-    private long id;
+    private int id;
     private String name;
     private int salary;
-    private static long idGenerator;
+    private static int idGenerator;
+
+
 
     public Employee(String name, int salary) {
         this.name = name;
