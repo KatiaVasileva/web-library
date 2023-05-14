@@ -60,6 +60,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
             if (employee.getId() == id) {
                 employee.setName(updatedEmployee.getName());
                 employee.setSalary(updatedEmployee.getSalary());
+                return;
             }
         }
         throw new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Сотрудник не найден!");
