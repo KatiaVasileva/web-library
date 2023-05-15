@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository{
 
-    private List<Employee> employeeList = new ArrayList<>(List.of(
+    private final List<Employee> employeeList = new ArrayList<>(List.of(
             new Employee("Kate", 90_000),
             new Employee("John", 102_000),
             new Employee("Ben", 80_000),
@@ -56,24 +56,23 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
 
     @Override
     public void editEmployee(int id, Employee updatedEmployee) {
-        for (Employee employee : employeeList) {
-            if (employee.getId() == id) {
-                employee.setName(updatedEmployee.getName());
-                employee.setSalary(updatedEmployee.getSalary());
-                return;
-            }
+        if (employeeList.stream().noneMatch(employee -> employee.getId() == id)) {
+            throw new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Сотрудник не найден!");
         }
-        throw new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Сотрудник не найден!");
+        employeeList.stream()
+                .filter(employee -> employee.getId() == id)
+                .forEach(employee -> {
+                    employee.setName(updatedEmployee.getName());
+                    employee.setSalary(updatedEmployee.getSalary());
+                });
     }
 
     @Override
     public Employee getEmployeeById(int id) {
-        for (Employee employee : employeeList) {
-            if (employee.getId() == id) {
-                return employee;
-            }
-        }
-        throw new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Сотрудник не найден!");
+        return employeeList.stream()
+                .filter(employee -> employee.getId() == id)
+                .findAny().orElseThrow(() ->
+                        new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Сотрудник не найден!"));
     }
 
     @Override
