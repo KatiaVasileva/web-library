@@ -12,12 +12,12 @@ public class EmployeeExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<?> handleIOException(IOException ioException) {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(ioException.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
     public ResponseEntity<?> handleException(Exception exception) {
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
