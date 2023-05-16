@@ -14,4 +14,14 @@ public interface EmployeeRepository {
     List<Employee> getEmployeesWithMaxSalary();
 
     List<Employee> getEmployeesWithHighSalary();
+
+    void addEmployeeList(List<Employee> newEmployeeList);
+
+    void editEmployee(int id, Employee updatedEmployee);
+
+    Employee getEmployeeById(int id);
+
+    void deleteEmployeeById(int id);
+
+    List<Employee> getEmployeesWithSalaryHigherThan(int salary);
 }

@@ -1,6 +1,8 @@
 package ru.skypro.lessons.springboot.weblibrary.repository;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import ru.skypro.lessons.springboot.weblibrary.exceptions.EmployeeNotFoundException;
 import ru.skypro.lessons.springboot.weblibrary.pojo.Employee;
 
 import java.util.*;
@@ -9,13 +11,12 @@ import java.util.stream.Collectors;
 @Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository{
 
-    private final List<Employee> employeeList = List.of(
+    private final List<Employee> employeeList = new ArrayList<>(List.of(
             new Employee("Kate", 90_000),
             new Employee("John", 102_000),
             new Employee("Ben", 80_000),
-            new Employee("Mary", 105_000),
-            new Employee("David", 80_000)
-    );
+            new Employee("Mary", 165_000)
+    ));
 
     @Override
     public List<Employee> getAllEmployees() {
@@ -45,6 +46,46 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
     public List<Employee> getEmployeesWithHighSalary() {
         return employeeList.stream()
                 .filter(employee -> employee.getSalary() > getSalaryStatics().getAverage())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void addEmployeeList(List<Employee> newEmployeeList) {
+        employeeList.addAll(newEmployeeList);
+    }
+
+    @Override
+    public void editEmployee(int id, Employee updatedEmployee) {
+        if (employeeList.stream().noneMatch(employee -> employee.getId() == id)) {
+            throw new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Сотрудник не найден!");
+        }
+        employeeList.stream()
+                .filter(employee -> employee.getId() == id)
+                .forEach(employee -> {
+                    employee.setName(updatedEmployee.getName());
+                    employee.setSalary(updatedEmployee.getSalary());
+                });
+    }
+
+    @Override
+    public Employee getEmployeeById(int id) {
+        return employeeList.stream()
+                .filter(employee -> employee.getId() == id)
+                .findAny().orElseThrow(() ->
+                        new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Сотрудник не найден!"));
+    }
+
+    @Override
+    public void deleteEmployeeById(int id) {
+        if (!employeeList.removeIf(employee -> employee.getId() == id)) {
+            throw new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Сотрудник не найден!");
+        }
+    }
+
+    @Override
+    public List<Employee> getEmployeesWithSalaryHigherThan(int salary) {
+        return employeeList.stream()
+                .filter(employee -> employee.getSalary() > salary)
                 .collect(Collectors.toList());
     }
 
