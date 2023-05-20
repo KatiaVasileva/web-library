@@ -22,4 +22,9 @@ public class Position {
 
     @OneToMany(mappedBy = "position", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
+
+    public Position(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

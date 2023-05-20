@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeDTO;
 import ru.skypro.lessons.springboot.weblibrary.exceptions.EmployeeNotFoundException;
 import ru.skypro.lessons.springboot.weblibrary.model.Employee;
+import ru.skypro.lessons.springboot.weblibrary.model.Position;
 import ru.skypro.lessons.springboot.weblibrary.model.projections.EmployeeFullInfo;
 import ru.skypro.lessons.springboot.weblibrary.repository.EmployeeRepository;
 
@@ -66,6 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService{
                 new EmployeeNotFoundException((HttpStatus.BAD_REQUEST), "Employee is not found!"));
         employee.setName(updatedEmployee.getName());
         employee.setSalary(updatedEmployee.getSalary());
+        employee.setPosition(new Position(updatedEmployee.getPosition().getId(), updatedEmployee.getPosition().getName()));
         employeeRepository.save(employee);
     }
 

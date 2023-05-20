@@ -5,4 +5,5 @@ public interface EmployeeView {
     String getName();
 
     Integer getSalary();
+
 }
