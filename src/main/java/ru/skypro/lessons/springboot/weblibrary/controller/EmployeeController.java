@@ -97,7 +97,7 @@ public class EmployeeController {
     // 14. Получение информации о сотрудниках на основе номера страницы
     // (если страница не указана - то возвращается первая страница)
     @GetMapping("/page")
-    public List<Employee> getEmployeeWithPaging(@RequestParam(value = "page", required = false) Integer pageIndex,
+    public List<EmployeeDTO> getEmployeeWithPaging(@RequestParam(value = "page", required = false) Integer pageIndex,
                                                 Integer unitPerPage) {
         return employeeService.getEmployeeWithPaging(pageIndex, unitPerPage);
     }

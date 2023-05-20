@@ -1,6 +1,5 @@
 package ru.skypro.lessons.springboot.weblibrary.service;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -14,6 +13,7 @@ import ru.skypro.lessons.springboot.weblibrary.repository.EmployeeRepository;
 
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -122,16 +122,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public List<Employee> getEmployeeWithPaging(Integer pageIndex, Integer unitPerPage) {
-        unitPerPage = 10;
-        if (pageIndex == null) {
-            Pageable employeeOfConcretePage = PageRequest.of(0, unitPerPage);
-            Page<Employee> page = employeeRepository.findAll(employeeOfConcretePage);
-            return page.stream().toList();
-        } else {
-            Pageable employeeOfConcretePage = PageRequest.of(pageIndex, unitPerPage);
-            Page<Employee> page = employeeRepository.findAll(employeeOfConcretePage);
-            return page.stream().toList();
-        }
+    public List<EmployeeDTO> getEmployeeWithPaging(Integer pageIndex, Integer unitPerPage) {
+        Pageable employeeOfConcretePage = PageRequest.of(Objects.requireNonNullElse(pageIndex, 0), 10);
+        return employeeRepository.findAll(employeeOfConcretePage).stream()
+                .map(EmployeeDTO::fromEmployee).collect(Collectors.toList());
     }
 }

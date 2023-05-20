@@ -34,6 +34,6 @@ public interface EmployeeService {
 
     EmployeeFullInfo getEmployeeFullInfoById(int id);
 
-    List<Employee> getEmployeeWithPaging(Integer pageIndex, Integer unitPerPage);
+    List<EmployeeDTO> getEmployeeWithPaging(Integer pageIndex, Integer unitPerPage);
 
 }

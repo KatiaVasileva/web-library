@@ -7,6 +7,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 
 @Entity
 @Table(name = "employees")
@@ -31,6 +32,7 @@ public class Employee {
         this.name = name;
         this.salary = salary;
     }
+
 
     @Override
     public String toString() {
