@@ -1,5 +1,6 @@
 package ru.skypro.lessons.springboot.weblibrary.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeDTO;
@@ -48,13 +49,13 @@ public class EmployeeController {
 
     // 6. Создание нового сотрудника
     @PostMapping("/")
-    public void addEmployee(@RequestBody Employee employee) {
+    public void addEmployee(@Valid @RequestBody Employee employee) {
         employeeService.addEmployee(employee);
     }
 
     // 7. Редактирование сотрудника по указанному идентификационному номеру
     @PutMapping("/{id}")
-    public void editEmployee(@PathVariable int id, @RequestBody Employee updatedEmployee) {
+    public void editEmployee(@PathVariable int id, @Valid @RequestBody Employee updatedEmployee) {
         employeeService.editEmployee(id, updatedEmployee);
     }
 

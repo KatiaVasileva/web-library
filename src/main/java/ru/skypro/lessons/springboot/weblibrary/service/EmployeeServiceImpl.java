@@ -2,7 +2,6 @@ package ru.skypro.lessons.springboot.weblibrary.service;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeDTO;
 import ru.skypro.lessons.springboot.weblibrary.exceptions.EmployeeNotFoundException;
@@ -63,8 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public void editEmployee(int id, Employee updatedEmployee) {
-        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-                new EmployeeNotFoundException((HttpStatus.BAD_REQUEST), "Employee is not found!"));
+        Employee employee = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
         employee.setName(updatedEmployee.getName());
         employee.setSalary(updatedEmployee.getSalary());
         employee.setPosition(new Position(updatedEmployee.getPosition().getId(), updatedEmployee.getPosition().getName()));
@@ -75,16 +73,14 @@ public class EmployeeServiceImpl implements EmployeeService{
     public EmployeeDTO getEmployeeById(int id) {
         return employeeRepository.findById(id).stream()
                 .map(EmployeeDTO::fromEmployee)
-                .findAny().orElseThrow(() ->
-                        new EmployeeNotFoundException((HttpStatus.BAD_REQUEST), "Employee is not found!"));
+                .findAny().orElseThrow(EmployeeNotFoundException::new);
     }
 
     @Override
     public void deleteEmployeeById(int id) {
         employeeRepository.findById(id).stream()
                 .map(EmployeeDTO::fromEmployee)
-                .findAny().orElseThrow(() ->
-                        new EmployeeNotFoundException((HttpStatus.BAD_REQUEST), "Employee is not found!"));
+                .findAny().orElseThrow(EmployeeNotFoundException::new);
         employeeRepository.deleteById(id);
     }
 
@@ -118,7 +114,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         if (employeeRepository.getEmployeeFullInfoById(id) != null) {
             return employeeRepository.getEmployeeFullInfoById(id);
         }
-        throw new EmployeeNotFoundException(HttpStatus.BAD_REQUEST, "Employee is not found!");
+        throw new EmployeeNotFoundException();
     }
 
     @Override

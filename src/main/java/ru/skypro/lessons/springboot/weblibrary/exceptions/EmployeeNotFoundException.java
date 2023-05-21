@@ -1,11 +1,14 @@
 package ru.skypro.lessons.springboot.weblibrary.exceptions;
 
-import org.springframework.http.HttpStatusCode;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-public class EmployeeNotFoundException extends ResponseStatusException {
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class EmployeeNotFoundException extends RuntimeException {
 
-    public EmployeeNotFoundException(HttpStatusCode status, String reason) {
-        super(status, reason);
+    private static final String DEFAULT_MESSAGE = "Employee is not found!";
+
+    public EmployeeNotFoundException() {
+        super(DEFAULT_MESSAGE);
     }
 }
