@@ -4,16 +4,16 @@ GET http://localhost:8080/employee/total-employees
 ### Получение суммы зарплат сотрудников
 GET http://localhost:8080/employee/salary/sum
 
-### Получение сотрудника с минимальной зарплатой
+### Получение сотрудников с минимальной зарплатой
 GET http://localhost:8080/employee/salary/min
 
-### Получение сотрудника с максимальной зарплатой
+### Получение сотрудников с максимальной зарплатой
 GET http://localhost:8080/employee/salary/max
 
 ### Получение всех сотрудников, зарплата которых больше средней
 GET http://localhost:8080/employee/high-salary
 
-### Создание множества новых сотрудников
+### Создание нового сотрудника
 POST http://localhost:8080/employee/
 
 ### Редактирование сотрудника по указанному идентификационному номеру
@@ -27,3 +27,15 @@ DELETE http://localhost:8080/employee/
 
 ### Получение всех сотрудников, зарплата которых выше переданного параметра salary
 GET http://localhost:8080/employee/salaryHigherThan
+
+### Получение полной информации о сотрудниках с самой высокой зарплатой
+GET http://localhost:8080/employee/withHighestSalary
+
+### Получение информации о сотрудниках указанного отдела
+GET http://localhost:8080/employee
+
+### Получение полной информации о сотруднике по указанному идентификационному номеру
+GET http://localhost:8080/employee/{id}/fullInfo
+
+### Получение информации о сотрудниках на основе номера страницы
+GET http://localhost:8080/employee/page
