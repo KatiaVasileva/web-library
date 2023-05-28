@@ -2,12 +2,15 @@ package ru.skypro.lessons.springboot.weblibrary.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeDTO;
 import ru.skypro.lessons.springboot.weblibrary.model.Employee;
 import ru.skypro.lessons.springboot.weblibrary.model.projections.EmployeeFullInfo;
 import ru.skypro.lessons.springboot.weblibrary.service.EmployeeService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -101,5 +104,15 @@ public class EmployeeController {
     public List<EmployeeDTO> getEmployeeWithPaging(@RequestParam(value = "page", required = false) Integer pageIndex,
                                                 Integer unitPerPage) {
         return employeeService.getEmployeeWithPaging(pageIndex, unitPerPage);
+    }
+
+    // 15. Загрузка файла json со списком сотрудников и сохранение всех сотрудников в базе данных
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        try {
+            employeeService.uploadFile(file);
+        } catch (IOException e) {
+            throw new IOException(e);
+        }
     }
 }
