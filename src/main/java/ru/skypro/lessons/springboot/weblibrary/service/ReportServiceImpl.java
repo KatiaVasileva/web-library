@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.skypro.lessons.springboot.weblibrary.model.projections.ReportEntry;
-import ru.skypro.lessons.springboot.weblibrary.model.ReportFile;
+import ru.skypro.lessons.springboot.weblibrary.model.Report;
 import ru.skypro.lessons.springboot.weblibrary.repository.ReportRepository;
 
 import java.io.*;
@@ -28,15 +28,15 @@ public class ReportServiceImpl implements ReportService{
         List<ReportEntry> reportEntries = reportRepository.getReport();
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(reportEntries);
-        ReportFile reportFile = new ReportFile(json);
-        reportRepository.save(reportFile);
-        return reportFile.getId();
+        Report report = new Report(json);
+        reportRepository.save(report);
+        return report.getId();
     }
 
     @Override
     public ResponseEntity<Resource> downloadFileById(int id) throws FileNotFoundException {
-        ReportFile reportFile = reportRepository.findById(id).orElseThrow(FileNotFoundException::new);
-        String json = reportFile.getJson();
+        Report report = reportRepository.findById(id).orElseThrow(FileNotFoundException::new);
+        String json = report.getJson();
         Resource resource = new ByteArrayResource(json.getBytes());
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"report.json\"")

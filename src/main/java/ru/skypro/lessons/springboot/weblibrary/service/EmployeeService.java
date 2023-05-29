@@ -32,7 +32,7 @@ public interface EmployeeService {
 
     List<EmployeeFullInfo> findEmployeeFullInfoWithMaxSalary();
 
-    List<EmployeeDTO> getEmployeesByDepartment(String name);
+    List<EmployeeDTO> getEmployeesByDepartment(String position);
 
     EmployeeFullInfo getEmployeeFullInfoById(int id);
 

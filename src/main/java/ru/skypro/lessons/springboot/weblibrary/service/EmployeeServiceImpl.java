@@ -103,13 +103,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public List<EmployeeDTO> getEmployeesByDepartment(String name) {
-        if (name.isEmpty()) {
+    public List<EmployeeDTO> getEmployeesByDepartment(String position) {
+        if (position.isEmpty()) {
             return employeeRepository.findAllEmployees().stream()
                     .map(EmployeeDTO::fromEmployee)
                     .collect(Collectors.toList());
         } else {
-            return employeeRepository.getEmployeesByDepartment(name).stream()
+            return employeeRepository.getEmployeesByDepartment(position).stream()
                     .map(EmployeeDTO::fromEmployee)
                     .collect(Collectors.toList());
         }
@@ -140,6 +140,5 @@ public class EmployeeServiceImpl implements EmployeeService{
         ObjectMapper objectMapper = new ObjectMapper();
         List<Employee> employees = objectMapper.readValue(json, new TypeReference<>(){});
         employeeRepository.saveAll(employees);
-
     }
 }

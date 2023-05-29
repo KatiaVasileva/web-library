@@ -88,8 +88,8 @@ public class EmployeeController {
 
     // 12. Получение информации о сотрудниках указанного отдела (если отдел не указан - о всех сотрудниках)
     @GetMapping("")
-    public List<EmployeeDTO> getEmployeesByDepartment(@RequestParam(value = "position", required = false) String name) {
-        return employeeService.getEmployeesByDepartment(name);
+    public List<EmployeeDTO> getEmployeesByDepartment(@RequestParam(value = "position", required = false) String position) {
+        return employeeService.getEmployeesByDepartment(position);
     }
 
     // 13. Получение полной информации о сотруднике по указанному идентификационному номеру
@@ -109,10 +109,7 @@ public class EmployeeController {
     // 15. Загрузка файла json со списком сотрудников и сохранение всех сотрудников в базе данных
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        try {
-            employeeService.uploadFile(file);
-        } catch (IOException e) {
-            throw new IOException(e);
-        }
+        employeeService.uploadFile(file);
+
     }
 }

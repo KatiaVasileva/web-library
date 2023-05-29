@@ -17,7 +17,11 @@ public class ReportEntry {
 
     private double avrSalary;
 
-    public ReportEntry(String position, long employeeQuantity, int maxSalary, int minSalary, double avrSalary) {
+    public ReportEntry(String position,
+                       long employeeQuantity,
+                       int maxSalary,
+                       int minSalary,
+                       double avrSalary) {
         this.position = position;
         this.employeeQuantity = employeeQuantity;
         this.maxSalary = maxSalary;

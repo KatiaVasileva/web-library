@@ -7,8 +7,11 @@ import lombok.Setter;
 @Setter
 
 public class EmployeeFullInfo {
+
     private String name;
+
     private int salary;
+
     private String positionName;
 
     public EmployeeFullInfo(String name, int salary, String positionName) {

@@ -9,8 +9,8 @@ import lombok.*;
 @EqualsAndHashCode
 
 @Entity
-@Table(name = "report_file")
-public class ReportFile {
+@Table(name = "reports")
+public class Report {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class ReportFile {
 
     private String json;
 
-    public ReportFile(String json) {
+    public Report(String json) {
         this.json = json;
     }
 }
