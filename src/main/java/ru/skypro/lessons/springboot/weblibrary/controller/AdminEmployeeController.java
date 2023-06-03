@@ -33,7 +33,12 @@ public class AdminEmployeeController {
             @ApiResponse(
                     responseCode = "200", description = "Сотрудник создан", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = CreateEmployee.class))}),
-            @ApiResponse(responseCode = "400", description = "Некорректный запрос")})
+            @ApiResponse(
+                    responseCode = "400", description = "Некорректный запрос"),
+            @ApiResponse(
+                    responseCode = "403", description = "Доступ запрещен")
+            })
+
     public void addEmployee(@Valid @RequestBody CreateEmployee employee) {
         employeeService.addEmployee(employee);
     }
@@ -45,8 +50,12 @@ public class AdminEmployeeController {
             @ApiResponse(
                     responseCode = "200", description = "Сотрудник изменен", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = CreateEmployee.class))}),
-            @ApiResponse(responseCode = "400", description = "Некорректный запрос"),
-            @ApiResponse(responseCode = "404", description = "Сотрудник не найден")})
+            @ApiResponse(
+                    responseCode = "400", description = "Некорректный запрос"),
+            @ApiResponse(
+                    responseCode = "404", description = "Сотрудник не найден"),
+            @ApiResponse(
+                    responseCode = "403", description = "Доступ запрещен")})
     public void editEmployee(@PathVariable int id, @Valid @RequestBody CreateEmployee createUpdatedEmployee) {
         employeeService.editEmployee(id, createUpdatedEmployee);
     }
@@ -56,7 +65,10 @@ public class AdminEmployeeController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200", description = "Сотрудник удален"),
-            @ApiResponse(responseCode = "404", description = "Сотрудник не найден")})
+            @ApiResponse(
+                    responseCode = "404", description = "Сотрудник не найден"),
+            @ApiResponse(
+                    responseCode = "403", description = "Доступ запрещен")})
     public void deleteEmployeeById(@PathVariable int id) {
         employeeService.deleteEmployeeById(id);
     }
@@ -68,7 +80,10 @@ public class AdminEmployeeController {
             @ApiResponse(
                     responseCode = "200", description = "Список сотрудников сохранен в базе данных", content = {
                     @Content(mediaType = "multipart/form-data")}),
-            @ApiResponse(responseCode = "400", description = "Некорректный запрос")})
+            @ApiResponse(
+                    responseCode = "400", description = "Некорректный запрос"),
+            @ApiResponse(
+                    responseCode = "403", description = "Доступ запрещен")})
     public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         employeeService.uploadFile(file);
     }
