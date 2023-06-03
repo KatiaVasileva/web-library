@@ -37,7 +37,7 @@ public class AdminEmployeeController {
                     responseCode = "400", description = "Некорректный запрос"),
             @ApiResponse(
                     responseCode = "403", description = "Доступ запрещен")
-            })
+    })
 
     public void addEmployee(@Valid @RequestBody CreateEmployee employee) {
         employeeService.addEmployee(employee);
@@ -88,3 +88,4 @@ public class AdminEmployeeController {
         employeeService.uploadFile(file);
     }
 }
+
