@@ -38,7 +38,7 @@ public class EmployeeExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<?> handleNotFoundException(EmployeeNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler

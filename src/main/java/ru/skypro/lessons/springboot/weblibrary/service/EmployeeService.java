@@ -1,8 +1,8 @@
 package ru.skypro.lessons.springboot.weblibrary.service;
 
 import org.springframework.web.multipart.MultipartFile;
+import ru.skypro.lessons.springboot.weblibrary.dto.CreateEmployee;
 import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeDTO;
-import ru.skypro.lessons.springboot.weblibrary.model.Employee;
 import ru.skypro.lessons.springboot.weblibrary.model.projections.EmployeeFullInfo;
 
 import java.io.IOException;
@@ -20,9 +20,9 @@ public interface EmployeeService {
 
     List<EmployeeFullInfo> findEmployeesWithHighSalary();
 
-    void addEmployee(Employee employee);
+    void addEmployee(CreateEmployee employee);
 
-    void editEmployee(int id, Employee updatedEmployee);
+    void editEmployee(int id, CreateEmployee createUpdatedEmployee);
 
     EmployeeDTO getEmployeeById(int id);
 

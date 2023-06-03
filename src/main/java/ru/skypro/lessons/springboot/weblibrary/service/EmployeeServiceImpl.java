@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.skypro.lessons.springboot.weblibrary.dto.CreateEmployee;
 import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeDTO;
 import ru.skypro.lessons.springboot.weblibrary.exceptions.EmployeeNotFoundException;
 import ru.skypro.lessons.springboot.weblibrary.model.Employee;
@@ -62,12 +63,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public void addEmployee(Employee employee) {
-        employeeRepository.save(employee);
+    public void addEmployee(CreateEmployee employee) {
+        employeeRepository.save(employee.toEmployee());
     }
 
     @Override
-    public void editEmployee(int id, Employee updatedEmployee) {
+    public void editEmployee(int id, CreateEmployee createUpdatedEmployee) {
+        Employee updatedEmployee = createUpdatedEmployee.toEmployee();
         Employee employee = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
         employee.setName(updatedEmployee.getName());
         employee.setSalary(updatedEmployee.getSalary());
@@ -141,4 +143,5 @@ public class EmployeeServiceImpl implements EmployeeService{
         List<Employee> employees = objectMapper.readValue(json, new TypeReference<>(){});
         employeeRepository.saveAll(employees);
     }
+
 }

@@ -1,115 +1,155 @@
 package ru.skypro.lessons.springboot.weblibrary.controller;
 
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeDTO;
-import ru.skypro.lessons.springboot.weblibrary.model.Employee;
 import ru.skypro.lessons.springboot.weblibrary.model.projections.EmployeeFullInfo;
 import ru.skypro.lessons.springboot.weblibrary.service.EmployeeService;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
 @RequiredArgsConstructor
+@Tag(name = "Сотрудники (USER)", description = "Получение данных по сотрудникам (права доступа - ADMIN, USER)")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    // 1. Получение списка сотрудников
     @GetMapping("/total-employees")
+    @Operation(summary = "Получение списка сотрудников", description = "Получить информацию о всех сотрудниках " +
+            "в базе данных.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Список всех сотрудников", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))})})
     public List<EmployeeDTO> findAllEmployees() {
         return employeeService.findAllEmployees();
     }
 
-    // 2. Получение суммы зарплат сотрудников
     @GetMapping("/salary/sum")
+    @Operation(summary = "Получение суммы зарплат сотрудников", description = "Получить информацию об общей сумме всех " +
+            "зарплат сотрудников.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Сумма зарплат")})
     public String findTotalSalary() {
         return employeeService.findTotalSalary();
     }
 
-    // 3. Получение полной информации о сотрудниках с минимальной зарплатой
     @GetMapping("/salary/min")
+    @Operation(summary = "Получение информации о сотрудниках с минимальной зарплатой",
+            description = "Получить информацию о сотрудниках с минимальной зарплатой (ID, имя, зарплата).")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Сотрудники с минимальной зарплатой", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))})})
     public List<EmployeeDTO> findEmployeesWithMinSalary() {
         return employeeService.findEmployeesWithMinSalary();
     }
 
-    // 4. Получение информации о сотрудниках с максимальной зарплатой
     @GetMapping("/salary/max")
+    @Operation(summary = "Получение информации о сотрудниках с максимальной зарплатой",
+            description = "Получить информацию о сотрудниках с максимальной зарплатой (ID, имя, зарплата).")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Сотрудники с максимальной зарплатой", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))})})
     public List<EmployeeDTO> findEmployeesWithMaxSalary() {
         return employeeService.findEmployeesWithMaxSalary();
     }
 
-    // 5. Получение всех сотрудников, зарплата которых больше средней
     @GetMapping("/high-salary")
+    @Operation(summary = "Получение всех сотрудников, зарплата которых больше средней",
+            description = "Получить полную информацию о сотрудниках (имя, зарплата, должность), зарплата которых больше средней.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Сотрудники с высокой зарплатой", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeFullInfo.class))})})
     public List<EmployeeFullInfo> findEmployeesWithHighSalary() {
         return employeeService.findEmployeesWithHighSalary();
     }
 
-    // 6. Создание нового сотрудника
-    @PostMapping("/")
-    public void addEmployee(@Valid @RequestBody Employee employee) {
-        employeeService.addEmployee(employee);
-    }
-
-    // 7. Редактирование сотрудника по указанному идентификационному номеру
-    @PutMapping("/{id}")
-    public void editEmployee(@PathVariable int id, @Valid @RequestBody Employee updatedEmployee) {
-        employeeService.editEmployee(id, updatedEmployee);
-    }
-
-    // 8. Получение информации о сотруднике по указанному идентификационному номеру
     @GetMapping("/{id}")
+    @Operation(summary = "Получение информации о сотруднике по ID",
+            description = "Получить информацию о сотруднике по указанному идентификационному номеру.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Сотрудник по указанному ID", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))}),
+            @ApiResponse(
+                    responseCode = "404", description = "Сотрудник не найден")
+    })
     public EmployeeDTO getEmployeeById(@PathVariable int id) {
         return employeeService.getEmployeeById(id);
     }
 
-    // 9. Удаление сотрудника по указанному идентификационному номеру
-    @DeleteMapping("/{id}")
-    public void deleteEmployeeById(@PathVariable int id) {
-        employeeService.deleteEmployeeById(id);
-    }
-
-    // 10. Получение всех сотрудников, зарплата которых выше переданного параметра salary
     @GetMapping("/salaryHigherThan")
+    @Operation(summary = "Получение информации о сотрудниках с определенной зарплатой",
+            description = "Получить информацию о сотрудниках, зарплата которых выше указанного значения.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Сотрудники с заданной зарплатой", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))}),
+            @ApiResponse(
+                    responseCode = "400", description = "Некорректный запрос")
+    })
     public List<EmployeeDTO> getEmployeesWithSalaryHigherThan(@RequestParam("salary") int salary) {
         return employeeService.findBySalaryGreaterThan(salary);
     }
 
-    // 11. Получение полной информации о сотрудниках с самой высокой зарплатой
     @GetMapping("/withHighestSalary")
+    @Operation(summary = "Получение информации о сотрудниках с самой высокой зарплатой",
+            description = "Получить полную информацию о сотрудниках (имя, зарплата, должность) с самой высокой зарплатой.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Сотрудники с самой высокой зарплатой", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeFullInfo.class))})})
     public List<EmployeeFullInfo> findEmployeeFullInfoWithMaxSalary() {
         return employeeService.findEmployeeFullInfoWithMaxSalary();
     }
 
-    // 12. Получение информации о сотрудниках указанного отдела (если отдел не указан - о всех сотрудниках)
     @GetMapping("")
+    @Operation(summary = "Получение информации о сотрудниках указанного отдела (если отдел не указан - о всех сотрудниках).")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Сотрудники указанного отдела", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))}),
+    })
     public List<EmployeeDTO> getEmployeesByDepartment(@RequestParam(value = "position", required = false) String position) {
         return employeeService.getEmployeesByDepartment(position);
     }
 
-    // 13. Получение полной информации о сотруднике по указанному идентификационному номеру
     @GetMapping("/{id}/fullInfo")
+    @Operation(summary = "Получение полной информации о сотруднике по ID",
+            description = "Получить полную информацию о сотруднике (имя, зарплата, должность) по указанному идентификационному номеру.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Сотрудник по указанному ID", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeFullInfo.class))}),
+            @ApiResponse(
+                    responseCode = "404", description = "Сотрудник не найден")
+    })
     public EmployeeFullInfo getEmployeeFullInfoById(@PathVariable int id) {
         return employeeService.getEmployeeFullInfoById(id);
     }
 
-    // 14. Получение информации о сотрудниках на основе номера страницы
-    // (если страница не указана - то возвращается первая страница)
     @GetMapping("/page")
+    @Operation(summary = "Получение информации о сотрудниках на основе номера страницы",
+            description = "Получить все записи о сотруднике по номеру страницы. " +
+                    "Если страница не указана, возвращает первую страницу.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Информация о сотрудниках на указанной странице", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))}),
+    })
     public List<EmployeeDTO> getEmployeeWithPaging(@RequestParam(value = "page", required = false) Integer pageIndex,
-                                                Integer unitPerPage) {
+                                                   Integer unitPerPage) {
         return employeeService.getEmployeeWithPaging(pageIndex, unitPerPage);
-    }
-
-    // 15. Загрузка файла json со списком сотрудников и сохранение всех сотрудников в базе данных
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        employeeService.uploadFile(file);
-
     }
 }
