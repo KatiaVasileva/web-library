@@ -43,7 +43,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
     @Query(value = "SELECT new ru.skypro.lessons.springboot.weblibrary.model." +
             "Employee(e.id, e.name, e.salary) FROM Employee e join fetch Position p " +
             "WHERE e.position = p AND p.name = ?1")
-    List<Employee> getEmployeesByDepartment(String name);
+    List<Employee> getEmployeesByDepartment(String position);
 
     @Query(value = "SELECT new ru.skypro.lessons.springboot.weblibrary.model.projections." +
             "EmployeeFullInfo(e.name, e.salary, p.name) " +
@@ -55,4 +55,5 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
             "Employee(e.id, e.name, e.salary) " +
             "FROM Employee e join fetch Position p WHERE e.position = p")
     Page<Employee> findAll(Pageable employeeOfConcretePage);
+
 }

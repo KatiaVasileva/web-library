@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,11 @@ public class EmployeeExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<?> handleNotFoundException(EmployeeNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<?> handleNotFoundException(FileNotFoundException exception) {
+        return new ResponseEntity<>("File is not found by this ID!", HttpStatus.NOT_FOUND);
     }
 }
