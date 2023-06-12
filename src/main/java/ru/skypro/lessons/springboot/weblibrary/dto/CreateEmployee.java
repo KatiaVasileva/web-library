@@ -9,6 +9,7 @@ import ru.skypro.lessons.springboot.weblibrary.model.Position;
 
 @Getter
 @Setter
+@ToString
 
 public class CreateEmployee {
 

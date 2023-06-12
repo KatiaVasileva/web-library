@@ -11,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 
 @Entity
 @Table(name = "employees")
@@ -32,16 +33,10 @@ public class Employee {
     @JoinColumn(name = "position_id")
     private Position position;
 
-
     public Employee(int id, @NotNull String name, int salary) {
         this.id = id;
         this.name = name;
         this.salary = salary;
     }
 
-
-    @Override
-    public String toString() {
-        return "Имя сотрудника: " + name + ", зарплата " + salary + " руб.";
-    }
 }

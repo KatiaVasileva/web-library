@@ -2,10 +2,12 @@ package ru.skypro.lessons.springboot.weblibrary.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import ru.skypro.lessons.springboot.weblibrary.model.Employee;
 
 @Getter
 @Setter
+@ToString
 
 public class EmployeeDTO {
     private int id;

@@ -1,6 +1,8 @@
 package ru.skypro.lessons.springboot.weblibrary.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +19,8 @@ import java.util.List;
 @Service
 public class ReportServiceImpl implements ReportService{
 
+    private static final Logger logger = LoggerFactory.getLogger(ReportServiceImpl.class);
+
     private final ReportRepository reportRepository;
 
     public ReportServiceImpl(ReportRepository reportRepository) {
@@ -30,17 +34,27 @@ public class ReportServiceImpl implements ReportService{
         String json = objectMapper.writeValueAsString(reportEntries);
         Report report = new Report(json);
         reportRepository.save(report);
-        return report.getId();
+        int reportId = report.getId();
+        logger.info("Report with id = {} was created: {}", reportId, report);
+        logger.debug("Database was updated");
+        return reportId;
     }
 
     @Override
     public ResponseEntity<Resource> downloadFileById(int id) throws FileNotFoundException {
-        Report report = reportRepository.findById(id).orElseThrow(FileNotFoundException::new);
-        String json = report.getJson();
-        Resource resource = new ByteArrayResource(json.getBytes());
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"report.json\"")
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .body(resource);
+        try {
+            Report report = reportRepository.findById(id).orElseThrow(FileNotFoundException::new);
+            String json = report.getJson();
+            Resource resource = new ByteArrayResource(json.getBytes());
+            ResponseEntity<Resource> file = ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"report.json\"")
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .body(resource);
+            logger.info("File was find by id = {}: {}", id, file);
+            return file;
+        } catch (FileNotFoundException e) {
+            logger.error("There is no report with id = " + id, e);
+            throw new FileNotFoundException();
+        }
     }
 }
