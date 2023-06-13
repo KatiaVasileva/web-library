@@ -7,6 +7,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 
 @Entity
 @Table(name = "reports")

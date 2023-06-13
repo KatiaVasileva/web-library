@@ -2,9 +2,11 @@ package ru.skypro.lessons.springboot.weblibrary.model.projections;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 
 public class EmployeeFullInfo {
 

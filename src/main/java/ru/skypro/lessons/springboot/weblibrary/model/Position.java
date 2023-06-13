@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@ToString
 
 @Entity
 @Table(name = "positions")
@@ -24,6 +25,10 @@ public class Position {
 
     @OneToMany(mappedBy = "position", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
+
+    public Position(int id) {
+        this.id = id;
+    }
 
     public Position(int id, String name) {
         this.id = id;
