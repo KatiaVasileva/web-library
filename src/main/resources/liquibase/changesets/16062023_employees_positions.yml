@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+     id:  16062023_employees_positions
+     author:  katiavasileva
+     changes:
+       -  addForeignKeyConstraint:
+            baseColumnNames:  position_id
+            baseTableName:  employees
+            baseTableSchemaName:  public
+            constraintName:  fk_employees_positions
+            referencedColumnNames:  id
+            referencedTableName:  positions
+            referencedTableSchemaName:  public

@@ -26,7 +26,7 @@ import java.util.Objects;
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 
-    private static final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 
     private final EmployeeRepository employeeRepository;
 
@@ -39,14 +39,14 @@ public class EmployeeServiceImpl implements EmployeeService{
         List<EmployeeDTO> employeeDTOList = employeeRepository.findAllEmployees().stream()
                 .map(EmployeeDTO::fromEmployee)
                 .toList();
-        logger.info("All employees were found: {}", employeeDTOList);
+        LOGGER.info("All employees were found: {}", employeeDTOList);
         return employeeDTOList;
     }
 
     @Override
     public String findTotalSalary() {
         String totalSalary = employeeRepository.findTotalSalary();
-        logger.info("The total salary sum equal to " + totalSalary + " rubles was received.");
+        LOGGER.info("The total salary sum equal to {} rubles was received", totalSalary);
         return "Total salary sum equal to" +  totalSalary + " rubles was found.";
     }
 
@@ -55,7 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         List<EmployeeDTO> employeeDTOList = employeeRepository.findEmployeesWithMinSalary().stream()
                 .map(EmployeeDTO::fromEmployee)
                 .toList();
-        logger.info("Employees with minimum salary were found: {}.", employeeDTOList);
+        LOGGER.info("Employees with minimum salary were found: {}.", employeeDTOList);
         return employeeDTOList;
     }
 
@@ -64,22 +64,22 @@ public class EmployeeServiceImpl implements EmployeeService{
         List<EmployeeDTO> employeeDTOList = employeeRepository.findEmployeesWithMaxSalary().stream()
                 .map(EmployeeDTO::fromEmployee)
                 .toList();
-        logger.info("Employees with maximum salary were found: {}.", employeeDTOList);
+        LOGGER.info("Employees with maximum salary were found: {}.", employeeDTOList);
         return employeeDTOList;
     }
 
     @Override
     public List<EmployeeFullInfo> findEmployeesWithHighSalary() {
         List<EmployeeFullInfo> employeeFullInfoList = employeeRepository.findEmployeesWithHighSalary();
-        logger.info("Employees with high salaries were found: {}", employeeFullInfoList);
+        LOGGER.info("Employees with high salaries were found: {}", employeeFullInfoList);
         return employeeFullInfoList;
     }
 
     @Override
     public void addEmployee(CreateEmployee employee) {
         employeeRepository.save(employee.toEmployee());
-        logger.info("Employee was added: {}", employee);
-        logger.debug("Database was updated");
+        LOGGER.info("Employee was added: {}", employee);
+        LOGGER.debug("Database was updated");
     }
 
     @Override
@@ -91,10 +91,10 @@ public class EmployeeServiceImpl implements EmployeeService{
             employee.setSalary(updatedEmployee.getSalary());
             employee.setPosition(new Position(updatedEmployee.getPosition().getId(), updatedEmployee.getPosition().getName()));
             employeeRepository.save(employee);
-            logger.info("Employee was edited: {}", createUpdatedEmployee);
-            logger.debug("Database was updated");
+            LOGGER.info("Employee was edited: {}", createUpdatedEmployee);
+            LOGGER.debug("Database was updated");
         } catch (EmployeeNotFoundException e) {
-            logger.error("There is no employee with id = " + id, e);
+            LOGGER.error("There is no employee with id = " + id, e);
             throw new EmployeeNotFoundException();
         }
     }
@@ -105,10 +105,10 @@ public class EmployeeServiceImpl implements EmployeeService{
              EmployeeDTO employeeDTO = employeeRepository.findById(id).stream()
                     .map(EmployeeDTO::fromEmployee)
                     .findAny().orElseThrow(EmployeeNotFoundException::new);
-            logger.info("Employee with id = {} was found: {}", id, employeeDTO);
+            LOGGER.info("Employee with id = {} was found: {}", id, employeeDTO);
             return employeeDTO;
         } catch (EmployeeNotFoundException e) {
-            logger.error("There is no employee with id = {}", id, e);
+            LOGGER.error("There is no employee with id = {}", id, e);
             throw new EmployeeNotFoundException();
         }
     }
@@ -120,10 +120,10 @@ public class EmployeeServiceImpl implements EmployeeService{
                     .map(EmployeeDTO::fromEmployee)
                     .findAny().orElseThrow(EmployeeNotFoundException::new);
             employeeRepository.deleteById(id);
-            logger.info("Employee with id = {} was deleted", id);
-            logger.debug("Database was updated");
+            LOGGER.info("Employee with id = {} was deleted", id);
+            LOGGER.debug("Database was updated");
         } catch (EmployeeNotFoundException e) {
-            logger.error("There is no employee with id = {}", id, e);
+            LOGGER.error("There is no employee with id = {}", id, e);
             throw new EmployeeNotFoundException();
         }
     }
@@ -133,14 +133,14 @@ public class EmployeeServiceImpl implements EmployeeService{
         List<EmployeeDTO> employeeDTOList = employeeRepository.findBySalaryGreaterThan(salary).stream()
                 .map(EmployeeDTO::fromEmployee)
                 .toList();
-        logger.info("Employees with the salary greater than the specified value were found: {}", employeeDTOList);
+        LOGGER.info("Employees with the salary greater than the specified value were found: {}", employeeDTOList);
         return employeeDTOList;
     }
 
     @Override
     public List<EmployeeFullInfo> findEmployeeFullInfoWithMaxSalary() {
         List<EmployeeFullInfo> employeeFullInfoList = employeeRepository.findEmployeeFullInfoWithMaxSalary();
-        logger.info("Employees (full info) with the maximum salary were found: {}", employeeFullInfoList);
+        LOGGER.info("Employees (full info) with the maximum salary were found: {}", employeeFullInfoList);
         return employeeFullInfoList;
     }
 
@@ -151,12 +151,12 @@ public class EmployeeServiceImpl implements EmployeeService{
             employeeDTOList = employeeRepository.findAllEmployees().stream()
                     .map(EmployeeDTO::fromEmployee)
                     .toList();
-            logger.info("All employees were found: {}", employeeDTOList);
+            LOGGER.info("All employees were found: {}", employeeDTOList);
         } else {
             employeeDTOList = employeeRepository.getEmployeesByDepartment(position).stream()
                     .map(EmployeeDTO::fromEmployee)
                     .toList();
-            logger.info("Employees from department {} were found: {}", position, employeeDTOList);
+            LOGGER.info("Employees from department {} were found: {}", position, employeeDTOList);
         }
         return employeeDTOList;
     }
@@ -165,10 +165,10 @@ public class EmployeeServiceImpl implements EmployeeService{
     public EmployeeFullInfo getEmployeeFullInfoById(int id) {
         if (employeeRepository.getEmployeeFullInfoById(id) != null) {
             EmployeeFullInfo employeeFullInfo = employeeRepository.getEmployeeFullInfoById(id);
-            logger.info("Full information about employee with id = {} was found: {}", id, employeeFullInfo);
+            LOGGER.info("Full information about employee with id = {} was found: {}", id, employeeFullInfo);
             return employeeFullInfo;
         }
-        logger.error("There is no employee with id = " + id, new EmployeeNotFoundException());
+        LOGGER.error("There is no employee with id = " + id, new EmployeeNotFoundException());
         throw new EmployeeNotFoundException();
     }
 
@@ -177,7 +177,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         Pageable employeeOfConcretePage = PageRequest.of(Objects.requireNonNullElse(pageIndex, 0), 10);
         List<EmployeeDTO> employeeDTOList = employeeRepository.findAll(employeeOfConcretePage).stream()
                 .map(EmployeeDTO::fromEmployee).toList();
-        logger.info("Page {} with employees was found: {}", pageIndex, employeeDTOList);
+        LOGGER.info("Page {} with employees was found: {}", pageIndex, employeeDTOList);
         return employeeDTOList;
     }
 
@@ -191,7 +191,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         ObjectMapper objectMapper = new ObjectMapper();
         List<Employee> employees = objectMapper.readValue(json, new TypeReference<>(){});
         employeeRepository.saveAll(employees);
-        logger.info("File with employees was uploaded: {}", employees);
-        logger.debug("Database was updated with file");
+        LOGGER.info("File with employees was uploaded: {}", employees);
+        LOGGER.debug("Database was updated with file");
     }
 }
