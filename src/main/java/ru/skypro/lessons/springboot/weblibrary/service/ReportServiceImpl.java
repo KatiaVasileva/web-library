@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class ReportServiceImpl implements ReportService{
 
-    private static final Logger logger = LoggerFactory.getLogger(ReportServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReportServiceImpl.class);
 
     private final ReportRepository reportRepository;
 
@@ -35,8 +35,8 @@ public class ReportServiceImpl implements ReportService{
         Report report = new Report(json);
         reportRepository.save(report);
         int reportId = report.getId();
-        logger.info("Report with id = {} was created: {}", reportId, report);
-        logger.debug("Database was updated");
+        LOGGER.info("Report with id = {} was created: {}", reportId, report);
+        LOGGER.debug("Database was updated");
         return reportId;
     }
 
@@ -50,10 +50,10 @@ public class ReportServiceImpl implements ReportService{
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"report.json\"")
                     .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                     .body(resource);
-            logger.info("File was find by id = {}: {}", id, file);
+            LOGGER.info("File was find by id = {}: {}", id, file);
             return file;
         } catch (FileNotFoundException e) {
-            logger.error("There is no report with id = " + id, e);
+            LOGGER.error("There is no report with id = " + id, e);
             throw new FileNotFoundException();
         }
     }

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 16062023_create_users
+      author: katiavasileva
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  type: varchar(120)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(120)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: int

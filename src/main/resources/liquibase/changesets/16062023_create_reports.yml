@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 16062023_create_reports
+      author: katiavasileva
+      changes:
+        - createTable:
+            tableName: reports
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: json
+                  type: text
+                  constraints:
+                    nullable: false

@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id:  16062023_authorities_users
+      author:  katiavasileva
+      changes:
+        -  addForeignKeyConstraint:
+             baseColumnNames:  username
+             baseTableName:  authorities
+             baseTableSchemaName:  public
+             constraintName:  fk_authorities_users
+             referencedColumnNames:  username
+             referencedTableName:  users
+             referencedTableSchemaName:  public
