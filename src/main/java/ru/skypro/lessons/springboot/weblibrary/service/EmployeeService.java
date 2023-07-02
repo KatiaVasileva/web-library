@@ -20,13 +20,13 @@ public interface EmployeeService {
 
     List<EmployeeFullInfo> findEmployeesWithHighSalary();
 
-    void addEmployee(CreateEmployee employee);
+    CreateEmployee addEmployee(CreateEmployee employee);
 
-    void editEmployee(int id, CreateEmployee createUpdatedEmployee);
+    CreateEmployee editEmployee(int id, CreateEmployee createUpdatedEmployee);
 
     EmployeeDTO getEmployeeById(int id);
 
-    void deleteEmployeeById(int id);
+    EmployeeDTO deleteEmployeeById(int id);
 
     List<EmployeeDTO> findBySalaryGreaterThan(int salary);
 
@@ -38,6 +38,6 @@ public interface EmployeeService {
 
     List<EmployeeDTO> getEmployeeWithPaging(Integer pageIndex, Integer unitPerPage);
 
-    void uploadFile(MultipartFile file) throws IOException;
+    List<EmployeeDTO> uploadFile(MultipartFile file) throws IOException;
 
 }
