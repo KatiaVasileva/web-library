@@ -76,15 +76,14 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public CreateEmployee addEmployee(CreateEmployee employee) {
+    public void addEmployee(CreateEmployee employee) {
         employeeRepository.save(employee.toEmployee());
         LOGGER.info("Employee was added: {}", employee);
         LOGGER.debug("Database was updated");
-        return employee;
     }
 
     @Override
-    public CreateEmployee editEmployee(int id, CreateEmployee createUpdatedEmployee) {
+    public void editEmployee(int id, CreateEmployee createUpdatedEmployee) {
         try {
             Employee updatedEmployee = createUpdatedEmployee.toEmployee();
             Employee employee = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
@@ -94,7 +93,6 @@ public class EmployeeServiceImpl implements EmployeeService{
             employeeRepository.save(employee);
             LOGGER.info("Employee was edited: {}", createUpdatedEmployee);
             LOGGER.debug("Database was updated");
-            return CreateEmployee.fromEmployee(employee);
         } catch (EmployeeNotFoundException e) {
             LOGGER.error("There is no employee with id = " + id, e);
             throw new EmployeeNotFoundException();
@@ -122,7 +120,7 @@ public class EmployeeServiceImpl implements EmployeeService{
                     .map(EmployeeDTO::fromEmployee)
                     .findAny().orElseThrow(EmployeeNotFoundException::new);
             employeeRepository.deleteById(id);
-            LOGGER.info("Employee with id = {} was deleted", id);
+            LOGGER.info("Employee with id = {} was deleted: {}", id, employeeDTO);
             LOGGER.debug("Database was updated");
             return employeeDTO;
         } catch (EmployeeNotFoundException e) {
@@ -150,7 +148,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public List<EmployeeDTO> getEmployeesByDepartment(String position) {
         List<EmployeeDTO> employeeDTOList;
-        if (position.isEmpty() || position.isBlank() || position.equals("0")) {
+        if (position.isEmpty() || position.isBlank()) {
             employeeDTOList = employeeRepository.findAllEmployees().stream()
                     .map(EmployeeDTO::fromEmployee)
                     .toList();
@@ -167,8 +165,8 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public EmployeeFullInfo getEmployeeFullInfoById(int id) {
         try {
-            if (employeeRepository.getEmployeeFullInfoById(id) != null) {
-                EmployeeFullInfo employeeFullInfo = employeeRepository.getEmployeeFullInfoById(id);
+            EmployeeFullInfo employeeFullInfo = employeeRepository.getEmployeeFullInfoById(id);
+            if (employeeFullInfo != null) {
                 LOGGER.info("Full information about employee with id = {} was found: {}", id, employeeFullInfo);
                 return employeeFullInfo;
             } else {

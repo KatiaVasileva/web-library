@@ -24,7 +24,7 @@ public class EmployeeServiceImplTestConstants {
         public static final int ID_2 = 2;
         public static final int SALARY = 90000;
         public static final String POSITION = "Developer";
-        public static final String EMPTY_POSITION = " ";
+        public static final String EMPTY_POSITION = "";
         public static final List<Employee> EMPLOYEE_LIST_BY_DEPARTMENT = List.of(new Employee(1, "Kate", 190000, new Position(2)),
                 new Employee(2, "James", 156000, new Position(2)),
                 new Employee(3, "Linda", 98000, new Position(2)));

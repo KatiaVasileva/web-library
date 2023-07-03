@@ -41,8 +41,8 @@ public class AdminEmployeeController {
                     responseCode = "403", description = "Доступ запрещен")
     })
 
-    public CreateEmployee addEmployee(@Valid @RequestBody CreateEmployee employee) {
-        return employeeService.addEmployee(employee);
+    public void addEmployee(@Valid @RequestBody CreateEmployee employee) {
+        employeeService.addEmployee(employee);
     }
 
     @PutMapping("/{id}")
@@ -58,8 +58,8 @@ public class AdminEmployeeController {
                     responseCode = "404", description = "Сотрудник не найден"),
             @ApiResponse(
                     responseCode = "403", description = "Доступ запрещен")})
-    public CreateEmployee editEmployee(@PathVariable int id, @Valid @RequestBody CreateEmployee createUpdatedEmployee) {
-        return employeeService.editEmployee(id, createUpdatedEmployee);
+    public void editEmployee(@PathVariable int id, @Valid @RequestBody CreateEmployee createUpdatedEmployee) {
+        employeeService.editEmployee(id, createUpdatedEmployee);
     }
 
     @DeleteMapping("/{id}")

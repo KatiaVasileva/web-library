@@ -86,24 +86,24 @@ public class EmployeeServiceImplTest {
     }
 
     @Test
-    @DisplayName("Return added employee")
-    public void shouldReturnAddedEmployeeWhenAddEmployeeIsCalled() {
+    @DisplayName("Call repository method to add employee")
+    public void shouldCallRepositoryMethodWhenAddEmployeeIsCalled() {
         Employee employee = EMPLOYEE.toEmployee();
         when(repositoryMock.save(eq(employee)))
                 .thenReturn(employee);
-        assertEquals(EMPLOYEE, out.addEmployee(EMPLOYEE));
+        out.addEmployee(EMPLOYEE);
         verify(repositoryMock, times(1)).save(employee);
     }
 
     @Test
-    @DisplayName("Return employee edited by ID")
-    public void shouldReturnEditedEmployeeWhenEditEmployeeIsCalled() {
+    @DisplayName("Call repository method to edit employee")
+    public void shouldCallRepositoryMethodWhenEditEmployeeIsCalled() {
         when(repositoryMock.findById(ID_1))
                 .thenReturn(Optional.of(EMPLOYEE_ID_1));
         when(repositoryMock.save(eq(EMPLOYEE_ID_1)))
                 .thenReturn(EMPLOYEE_ID_1);
         CreateEmployee createEmployee = CreateEmployee.fromEmployee(EMPLOYEE_ID_1);
-        assertEquals(createEmployee, out.editEmployee(EMPLOYEE_ID_1.getId(), createEmployee));
+        out.editEmployee(ID_1, createEmployee);
         verify(repositoryMock, times(1)).save(EMPLOYEE_ID_1);
     }
 
