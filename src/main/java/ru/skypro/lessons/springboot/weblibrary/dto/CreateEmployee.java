@@ -10,6 +10,8 @@ import ru.skypro.lessons.springboot.weblibrary.model.Position;
 @Getter
 @Setter
 @ToString
+@RequiredArgsConstructor
+@EqualsAndHashCode
 
 public class CreateEmployee {
 
@@ -20,14 +22,23 @@ public class CreateEmployee {
     @Positive(message = "The salary should be a positive number.")
     private int salary;
 
-    @Positive(message = "The position number should be a positive number.")
+    //@Positive(message = "The position number should be a positive number.")
     private int positionNumber;
+
+    public CreateEmployee(@NotNull(message = "The name cannot be null.") String name,
+                          int salary,
+                          int positionNumber) {
+        this.name = name;
+        this.salary = salary;
+        this.positionNumber = positionNumber;
+    }
 
     public static CreateEmployee fromEmployee(Employee employee) {
         CreateEmployee createEmployee = new CreateEmployee();
         createEmployee.setName(employee.getName());
         createEmployee.setSalary(employee.getSalary());
-        createEmployee.setPositionNumber(createEmployee.getPositionNumber());
+        Position position = employee.getPosition();
+        createEmployee.setPositionNumber(position.getId());
         return createEmployee;
     }
 

@@ -11,9 +11,11 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.lessons.springboot.weblibrary.dto.CreateEmployee;
+import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeDTO;
 import ru.skypro.lessons.springboot.weblibrary.service.EmployeeService;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("admin/employee")
@@ -39,8 +41,8 @@ public class AdminEmployeeController {
                     responseCode = "403", description = "Доступ запрещен")
     })
 
-    public void addEmployee(@Valid @RequestBody CreateEmployee employee) {
-        employeeService.addEmployee(employee);
+    public CreateEmployee addEmployee(@Valid @RequestBody CreateEmployee employee) {
+        return employeeService.addEmployee(employee);
     }
 
     @PutMapping("/{id}")
@@ -49,15 +51,15 @@ public class AdminEmployeeController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200", description = "Сотрудник изменен", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = CreateEmployee.class))}),
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))}),
             @ApiResponse(
                     responseCode = "400", description = "Некорректный запрос"),
             @ApiResponse(
                     responseCode = "404", description = "Сотрудник не найден"),
             @ApiResponse(
                     responseCode = "403", description = "Доступ запрещен")})
-    public void editEmployee(@PathVariable int id, @Valid @RequestBody CreateEmployee createUpdatedEmployee) {
-        employeeService.editEmployee(id, createUpdatedEmployee);
+    public CreateEmployee editEmployee(@PathVariable int id, @Valid @RequestBody CreateEmployee createUpdatedEmployee) {
+        return employeeService.editEmployee(id, createUpdatedEmployee);
     }
 
     @DeleteMapping("/{id}")
@@ -69,8 +71,8 @@ public class AdminEmployeeController {
                     responseCode = "404", description = "Сотрудник не найден"),
             @ApiResponse(
                     responseCode = "403", description = "Доступ запрещен")})
-    public void deleteEmployeeById(@PathVariable int id) {
-        employeeService.deleteEmployeeById(id);
+    public EmployeeDTO deleteEmployeeById(@PathVariable int id) {
+        return employeeService.deleteEmployeeById(id);
     }
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -79,13 +81,13 @@ public class AdminEmployeeController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200", description = "Список сотрудников сохранен в базе данных", content = {
-                    @Content(mediaType = "multipart/form-data")}),
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))}),
             @ApiResponse(
                     responseCode = "400", description = "Некорректный запрос"),
             @ApiResponse(
                     responseCode = "403", description = "Доступ запрещен")})
-    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        employeeService.uploadFile(file);
+    public List<EmployeeDTO> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        return employeeService.uploadFile(file);
     }
 }
 

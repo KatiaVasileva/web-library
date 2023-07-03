@@ -1,6 +1,5 @@
 package ru.skypro.lessons.springboot.weblibrary.repository;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -54,6 +53,6 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
     @Query(value = "SELECT new ru.skypro.lessons.springboot.weblibrary.model." +
             "Employee(e.id, e.name, e.salary) " +
             "FROM Employee e join fetch Position p WHERE e.position = p")
-    Page<Employee> findAll(Pageable employeeOfConcretePage);
+    List<Employee> findAll(Pageable employeeOfConcretePage);
 
 }

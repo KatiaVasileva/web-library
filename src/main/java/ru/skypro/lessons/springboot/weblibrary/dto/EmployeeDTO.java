@@ -1,5 +1,6 @@
 package ru.skypro.lessons.springboot.weblibrary.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,6 +9,7 @@ import ru.skypro.lessons.springboot.weblibrary.model.Employee;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 
 public class EmployeeDTO {
     private int id;

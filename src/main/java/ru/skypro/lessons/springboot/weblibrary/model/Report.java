@@ -19,6 +19,11 @@ public class Report {
 
     private String json;
 
+    public Report(int id, String json) {
+        this.id = id;
+        this.json = json;
+    }
+
     public Report(String json) {
         this.json = json;
     }
