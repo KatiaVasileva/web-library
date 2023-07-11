@@ -76,14 +76,15 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public void addEmployee(CreateEmployee employee) {
+    public CreateEmployee addEmployee(CreateEmployee employee) {
         employeeRepository.save(employee.toEmployee());
         LOGGER.info("Employee was added: {}", employee);
         LOGGER.debug("Database was updated");
+        return employee;
     }
 
     @Override
-    public void editEmployee(int id, CreateEmployee createUpdatedEmployee) {
+    public CreateEmployee editEmployee(int id, CreateEmployee createUpdatedEmployee) {
         try {
             Employee updatedEmployee = createUpdatedEmployee.toEmployee();
             Employee employee = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
@@ -93,6 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService{
             employeeRepository.save(employee);
             LOGGER.info("Employee was edited: {}", createUpdatedEmployee);
             LOGGER.debug("Database was updated");
+            return CreateEmployee.fromEmployee(employee);
         } catch (EmployeeNotFoundException e) {
             LOGGER.error("There is no employee with id = " + id, e);
             throw new EmployeeNotFoundException();

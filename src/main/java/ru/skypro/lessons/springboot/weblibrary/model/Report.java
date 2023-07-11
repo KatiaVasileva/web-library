@@ -17,6 +17,7 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Lob
     private String json;
 
     public Report(int id, String json) {

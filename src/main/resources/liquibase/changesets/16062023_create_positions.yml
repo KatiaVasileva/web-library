@@ -17,3 +17,13 @@ databaseChangeLog:
                   type: varchar(120)
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 07072023_add_unique_constraint
+      author: katiavasileva
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: const_name
+            schemaName: public
+            tableName: positions
+            validate: true
