@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
@@ -178,8 +181,12 @@ public class AdminEmployeeControllerTest {
 
         @Test
         public void uploadFileTest() throws Exception {
+            generatePosition();
+
+            ResourceLoader resourceLoader = new DefaultResourceLoader();
+            Resource resource = resourceLoader.getResource("classpath:employees.json");
             List<Employee> expected = objectMapper.readValue(
-                    ru.skypro.lessons.springboot.weblibrary.controller.AdminEmployeeControllerTest.class.getResourceAsStream("employees.json"),
+                    resource.getFile(),
                     new TypeReference<>() {
                     });
 
@@ -188,10 +195,10 @@ public class AdminEmployeeControllerTest {
                     .toList();
 
             MockMultipartFile mockMultipartFile = new MockMultipartFile(
-                    "employees",
+                    "file",
                     "employees.json",
                     MediaType.APPLICATION_JSON_VALUE,
-                    ru.skypro.lessons.springboot.weblibrary.controller.AdminEmployeeControllerTest.class.getResourceAsStream("employees.json")
+                    resource.getInputStream()
             );
 
             mockMvc.perform(multipart("/admin/employee/upload")
@@ -201,7 +208,7 @@ public class AdminEmployeeControllerTest {
                                 assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
                                 List<EmployeeDTO> actual = getAllTest();
                                 assertThat(actual)
-                                        .hasSize(3)
+                                        .hasSize(2)
                                         .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
                                         .containsExactlyInAnyOrderElementsOf(expectedDTO);
                             }
