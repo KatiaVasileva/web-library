@@ -149,7 +149,7 @@ public class EmployeeController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))}),
     })
     public List<EmployeeDTO> getEmployeeWithPaging(@RequestParam(value = "page", required = false) Integer pageIndex,
-                                                   Integer unitPerPage) {
+                                                   @RequestParam (value= "size") Integer unitPerPage) {
         return employeeService.getEmployeeWithPaging(pageIndex, unitPerPage);
     }
 }

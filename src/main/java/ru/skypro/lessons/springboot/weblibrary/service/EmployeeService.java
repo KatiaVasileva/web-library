@@ -20,9 +20,9 @@ public interface EmployeeService {
 
     List<EmployeeFullInfo> findEmployeesWithHighSalary();
 
-    void addEmployee(CreateEmployee employee);
+    CreateEmployee addEmployee(CreateEmployee employee);
 
-    void editEmployee(int id, CreateEmployee createUpdatedEmployee);
+    CreateEmployee editEmployee(int id, CreateEmployee createUpdatedEmployee);
 
     EmployeeDTO getEmployeeById(int id);
 

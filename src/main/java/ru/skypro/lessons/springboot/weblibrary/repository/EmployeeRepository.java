@@ -6,7 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import ru.skypro.lessons.springboot.weblibrary.model.Employee;
 import ru.skypro.lessons.springboot.weblibrary.model.projections.EmployeeFullInfo;
 
-
 import java.util.List;
 
 public interface EmployeeRepository extends CrudRepository<Employee, Integer> {

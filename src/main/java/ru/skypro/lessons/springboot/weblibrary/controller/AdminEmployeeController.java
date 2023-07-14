@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("admin/employee")
+@RequestMapping("/admin/employee")
 @Tag(name = "Сотрудники (ADMIN)", description = "Создание, модификация и удаление данных по сотрудникам (права доступа - ADMIN)")
 public class AdminEmployeeController {
 
@@ -28,7 +28,7 @@ public class AdminEmployeeController {
         this.employeeService = employeeService;
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     @Operation(summary = "Создание нового сотрудника", description = "Создает нового сотрудника. " +
             "При создании необходимо указать имя сотрудника, зарплату и идентификационный номер должности.")
     @ApiResponses(value = {
@@ -40,9 +40,8 @@ public class AdminEmployeeController {
             @ApiResponse(
                     responseCode = "403", description = "Доступ запрещен")
     })
-
-    public void addEmployee(@Valid @RequestBody CreateEmployee employee) {
-        employeeService.addEmployee(employee);
+    public CreateEmployee addEmployee(@Valid @RequestBody CreateEmployee employee) {
+        return employeeService.addEmployee(employee);
     }
 
     @PutMapping("/{id}")
@@ -58,8 +57,8 @@ public class AdminEmployeeController {
                     responseCode = "404", description = "Сотрудник не найден"),
             @ApiResponse(
                     responseCode = "403", description = "Доступ запрещен")})
-    public void editEmployee(@PathVariable int id, @Valid @RequestBody CreateEmployee createUpdatedEmployee) {
-        employeeService.editEmployee(id, createUpdatedEmployee);
+    public CreateEmployee editEmployee(@PathVariable int id, @Valid @RequestBody CreateEmployee createUpdatedEmployee) {
+        return employeeService.editEmployee(id, createUpdatedEmployee);
     }
 
     @DeleteMapping("/{id}")
