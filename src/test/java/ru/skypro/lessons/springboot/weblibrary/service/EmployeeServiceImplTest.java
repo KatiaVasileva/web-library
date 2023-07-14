@@ -112,8 +112,6 @@ public class EmployeeServiceImplTest {
     public void shouldThrowEmployeeNotFoundExceptionWhenIdIsNotFound() {
         when(repositoryMock.findById(any()))
                 .thenThrow(EmployeeNotFoundException.class);
-        when(repositoryMock.getEmployeeFullInfoById(ID_2))
-                .thenThrow(EmployeeNotFoundException.class);
 
         assertThrows(EmployeeNotFoundException.class,
                 () -> out.editEmployee(ID_2, EMPLOYEE));
