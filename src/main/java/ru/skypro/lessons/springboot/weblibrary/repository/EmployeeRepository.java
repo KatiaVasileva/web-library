@@ -53,5 +53,4 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
             "Employee(e.id, e.name, e.salary) " +
             "FROM Employee e join fetch Position p WHERE e.position = p")
     List<Employee> findAll(Pageable employeeOfConcretePage);
-
 }
