@@ -39,5 +39,4 @@ public interface EmployeeService {
     List<EmployeeDTO> getEmployeeWithPaging(Integer pageIndex, Integer unitPerPage);
 
     List<EmployeeDTO> uploadFile(MultipartFile file) throws IOException;
-
 }

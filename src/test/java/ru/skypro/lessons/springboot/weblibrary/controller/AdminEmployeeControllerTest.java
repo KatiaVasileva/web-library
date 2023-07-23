@@ -3,7 +3,6 @@ package ru.skypro.lessons.springboot.weblibrary.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.skypro.lessons.springboot.weblibrary.dto.CreateEmployee;
 import ru.skypro.lessons.springboot.weblibrary.dto.EmployeeDTO;
@@ -35,7 +33,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -46,21 +43,12 @@ public class AdminEmployeeControllerTest {
         private MockMvc mockMvc;
 
         @Autowired
-        private EmployeeRepository employeeRepository;
-
-        @Autowired
         private PositionRepository positionRepository;
 
         @Autowired
         private ObjectMapper objectMapper;
 
         private final Faker faker = new Faker();
-
-        @AfterEach
-        public void afterEach() {
-            employeeRepository.deleteAll();
-            positionRepository.deleteAll();
-        }
 
         @Test
         public void addEmployeeTest() throws Exception {
@@ -77,21 +65,19 @@ public class AdminEmployeeControllerTest {
 
         @Test
         void givenNoEmployeesInDatabase_whenEmployeeAddedWithNullOrEmptyOrInvalidParameters_thenBadRequest() throws Exception {
-            CreateEmployee createEmployee1 = generateEmployee();
+            CreateEmployee createEmployee = generateEmployee();
 
-            createEmployee1.setName("");
-            badRequestResponseWhenAddWithInvalidParameters(createEmployee1);
+            createEmployee.setName("");
+            badRequestResponseWhenAddWithInvalidParameters(createEmployee);
 
-            createEmployee1.setName(null);
-            badRequestResponseWhenAddWithInvalidParameters(createEmployee1);
+            createEmployee.setName(null);
+            badRequestResponseWhenAddWithInvalidParameters(createEmployee);
 
-            CreateEmployee createEmployee2 = generateEmployee();
-            createEmployee2.setSalary(-10);
-            badRequestResponseWhenAddWithInvalidParameters(createEmployee2);
+            createEmployee.setSalary(-10);
+            badRequestResponseWhenAddWithInvalidParameters(createEmployee);
 
-            CreateEmployee createEmployee3 = generateEmployee();
-            createEmployee3.setPositionNumber(0);
-            badRequestResponseWhenAddWithInvalidParameters(createEmployee3);
+            createEmployee.setPositionNumber(0);
+            badRequestResponseWhenAddWithInvalidParameters(createEmployee);
         }
 
         public void badRequestResponseWhenAddWithInvalidParameters(CreateEmployee createEmployee) throws Exception {
@@ -264,5 +250,4 @@ public class AdminEmployeeControllerTest {
                     });
             return employeeDTO;
         }
-
 }

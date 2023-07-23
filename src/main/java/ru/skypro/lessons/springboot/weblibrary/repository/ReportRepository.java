@@ -13,5 +13,4 @@ public interface ReportRepository extends CrudRepository<Report, Integer> {
             "ReportEntry(p.name, COUNT(e), MAX(e.salary), MIN(e.salary), AVG(e.salary)) " +
             "FROM Employee e join fetch Position p WHERE e.position = p GROUP BY p.name")
     List<ReportEntry> getReport();
-
 }
